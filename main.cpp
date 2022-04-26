@@ -12,7 +12,7 @@ void displayGameBoard(char gameBoard[], int boardSize)
 {
     for (int i = 0; i < boardSize; ++i)
     {
-        std::cout << " " << gameBoard[i] << " |";
+        std::cout << " " << gameBoard[i] << " |";      
         if ((i + 1) % 3 == 0)
         {
             std::cout << "\n------------\n";
@@ -31,10 +31,28 @@ int main()
     };
 
     char playerOne = 'X';
-    char playerTwo = 'O';
+    // char playerTwo = 'O';
+    char currPlayer = playerOne;
 
     displayGameBoard(gameBoard, 9);
 
-    std::cout << "Player One: " << playerOne << ", Player Two: " << playerTwo << "\n";
+    int boardPos = 0;
+    bool badInput = true;
+
+    std::cout << "Player " << currPlayer << ", enter a board position <1 - 9>: ";
+    while (badInput)
+    {
+        badInput = false;
+        std::cin >> boardPos;
+
+        if (boardPos <= 0 || boardPos > 9 ||
+            gameBoard[boardPos - 1] != static_cast<char>(boardPos + 48))
+        {
+            badInput = true;
+            std::cout << "ERROR! Please enter a valid position: ";
+        }
+    }  
+
+    std::cout << "\n";
     return 0;
 }
