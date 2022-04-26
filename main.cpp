@@ -3,8 +3,8 @@
 /*
 *  Writes the current game board to standard output.
 *
-*  @param   gameBoard the game board to display.
-*  @param   boardSize the game board's size.
+*  @param   gameBoard   the game board to display.
+*  @param   boardSize   the game board's size.
 *
 *  @return  None.
 */
@@ -24,9 +24,9 @@ void displayGameBoard(char gameBoard[], int boardSize)
 /*
 *  Reads a board position from standard input.
 *
-*  @param   gameBoard the current game board.
-*  @param   currPlayer the player with the turn.
-*  @param   boardSize the game board's size.
+*  @param   gameBoard   the current game board.
+*  @param   currPlayer  the player with the turn.
+*  @param   boardSize   the game board's size.
 *
 *  @return  A valid board position.
 */
@@ -53,6 +53,43 @@ int enterBoardPosition(char gameBoard[], char currPlayer, int boardSize)
     return position;
 }
 
+/*
+*	Checks if the current player has made a row match.
+*
+*   @param  gameBoard   the current game board.
+*	@param  currPlayer  the player with the turn.
+*	@param  boardSize   the game board's size.
+*
+*	@return  True if three consistent marks are found.
+*/
+bool rowMatch(char gameBoard[], char currPlayer, int boardSize)
+{
+    int count = 0; // Three instances make a winning match
+    int i = 0;     // Board iterator by row
+    int j = 0;     // Board iterator by column
+
+    while (i < boardSize)
+    {
+        if (gameBoard[i + j] == currPlayer)
+        {
+            if (++count >= 3)
+            {
+                return true;
+            }
+
+            j++;
+        }
+        else
+        {
+            count = 0;
+            i += 3;
+            j = 0;
+        }
+    }
+
+    return false;
+}
+
 int main()
 {
     char gameBoard[9]
@@ -65,10 +102,17 @@ int main()
     char playerOne = 'X';
     char playerTwo = 'O';
     char currPlayer = playerTwo;
+    bool matchFound = false;
 
     for (int i = 0; i < 9; ++i)
     {
         displayGameBoard(gameBoard, 9);
+
+        matchFound = rowMatch(gameBoard, currPlayer, 9);
+        if (matchFound)
+        {
+            break;
+        }
 
         if (currPlayer == playerOne)
         {
@@ -83,5 +127,14 @@ int main()
         gameBoard[boardPos - 1] = currPlayer;
     }
     
+    if (matchFound)
+    {
+        std::cout << "Player " << currPlayer << " WINS!\n";
+    }
+    else
+    {
+        std::cout << "DRAW!\n";
+    }
+
     return 0;
 }
