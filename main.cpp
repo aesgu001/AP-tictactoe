@@ -21,6 +21,38 @@ void displayGameBoard(char gameBoard[], int boardSize)
     std::cout << "\n";
 }
 
+/*
+*  Reads a board position from standard input.
+*
+*  @param   gameBoard the current game board.
+*  @param   currPlayer the player with the turn.
+*  @param   boardSize the game board's size.
+*
+*  @return  A valid board position.
+*/
+int enterBoardPosition(char gameBoard[], char currPlayer, int boardSize)
+{
+    int position = 0;
+    bool badInput = true;
+
+    std::cout << "Player " << currPlayer << ", enter a position <1 - " << boardSize << ">: ";  
+    while (badInput)
+    {
+        badInput = false;
+        std::cin >> position;
+
+        if (position <= 0 || position > boardSize ||
+            gameBoard[position - 1] != static_cast<char>(position + 48))
+        {
+            badInput = true;
+            std::cout << "ERROR! Please enter a valid position: ";
+        }
+    }
+    std::cout << "\n";
+
+    return position;
+}
+
 int main()
 {
     char gameBoard[9]
@@ -35,24 +67,7 @@ int main()
     char currPlayer = playerOne;
 
     displayGameBoard(gameBoard, 9);
-
-    int boardPos = 0;
-    bool badInput = true;
-
-    std::cout << "Player " << currPlayer << ", enter a board position <1 - 9>: ";
-    while (badInput)
-    {
-        badInput = false;
-        std::cin >> boardPos;
-
-        if (boardPos <= 0 || boardPos > 9 ||
-            gameBoard[boardPos - 1] != static_cast<char>(boardPos + 48))
-        {
-            badInput = true;
-            std::cout << "ERROR! Please enter a valid position: ";
-        }
-    }  
-
-    std::cout << "\n";
+    enterBoardPosition(gameBoard, currPlayer, 9);
+    
     return 0;
 }
