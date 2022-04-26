@@ -90,6 +90,43 @@ bool rowMatch(char gameBoard[], char currPlayer, int boardSize)
     return false;
 }
 
+/*
+*	Checks if the current player has made a column match.
+*
+*   @param  gameBoard   the current game board.
+*	@param  currPlayer  the player with the turn.
+*	@param  boardSize   the game board's size.
+*
+*	@return  True if three consistent marks are found.
+*/
+const bool columnMatch(const char gameBoard[], char currPlayer, int boardSize)
+{
+    int count = 0;
+    int i = 0;
+    int j = 0;
+
+    while (j < boardSize / 3)
+    {
+        if (gameBoard[i + j] == currPlayer)
+        {
+            if (++count >= 3)
+            {
+                return true;
+            }
+
+            i += 3;
+        }
+        else
+        {
+            count = 0;
+            i = 0;
+            j++;
+        }
+    }
+
+    return false;
+}
+
 int main()
 {
     char gameBoard[9]
@@ -108,7 +145,7 @@ int main()
     {
         displayGameBoard(gameBoard, 9);
 
-        matchFound = rowMatch(gameBoard, currPlayer, 9);
+        matchFound = rowMatch(gameBoard, currPlayer, 9) || columnMatch(gameBoard, currPlayer, 9);
         if (matchFound)
         {
             break;
