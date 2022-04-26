@@ -189,6 +189,27 @@ bool diagonalMatch(char gameBoard[], char currPlayer, int boardSize)
 	return false;
 }
 
+/*
+*	Checks if there are no more moves available.
+*
+*   @param  gameBoard   the current game board.
+*	@param  boardSize   the game board's size.
+*
+*	@return  True if there are no numbered positions.
+*/
+bool noMoreMoves(char gameBoard[], int boardSize)
+{
+    for (int i = 0; i < boardSize; i++)
+	{
+		if (gameBoard[i] == static_cast<char>(i + 1 + 48))
+		{
+			return false;
+		}
+	}
+
+	return true;
+}
+
 int main()
 {
     char gameBoard[9]
@@ -203,13 +224,13 @@ int main()
     char currPlayer = playerTwo;
     bool matchFound = false;
 
-    for (int i = 0; i < 9; ++i)
+    while (true)
     {
         displayGameBoard(gameBoard, 9);
 
         matchFound = rowMatch(gameBoard, currPlayer, 9) || columnMatch(gameBoard, currPlayer, 9) ||
             diagonalMatch(gameBoard, currPlayer, 9);
-        if (matchFound)
+        if (matchFound || noMoreMoves(gameBoard, 9))
         {
             break;
         }
