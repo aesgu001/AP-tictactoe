@@ -99,7 +99,7 @@ bool rowMatch(char gameBoard[], char currPlayer, int boardSize)
 *
 *	@return  True if three consistent marks are found.
 */
-const bool columnMatch(const char gameBoard[], char currPlayer, int boardSize)
+bool columnMatch(char gameBoard[], char currPlayer, int boardSize)
 {
     int count = 0;
     int i = 0;
@@ -127,6 +127,68 @@ const bool columnMatch(const char gameBoard[], char currPlayer, int boardSize)
     return false;
 }
 
+/*
+*	Checks if the current player has made a diagonal match.
+*
+*   @param  gameBoard   the current game board.
+*	@param  currPlayer  the player with the turn.
+*	@param  boardSize   the game board's size.
+*
+*	@return  True if three consistent marks are found.
+*/
+bool diagonalMatch(char gameBoard[], char currPlayer, int boardSize)
+{
+	int count = 0;
+	int i = 0;
+	int j = 0;
+
+	// Move 1 space down, 1 space right
+	while (i < boardSize)
+	{
+		if (gameBoard[i + j] == currPlayer)
+		{
+			if (++count >= 3)
+			{
+				return true;
+			}
+
+			i += 3;
+			j++;
+		}
+
+		// Setup iterators for the upward match check
+		else
+		{
+			count = 0;
+			i = boardSize - 3;
+			j = 0;
+
+			break;
+		}
+	}
+
+	// Move 1 space up, 1 space right
+	while (i >= 0)
+	{
+		if (gameBoard[i + j] == currPlayer)
+		{
+			if (++count >= 3)
+			{
+				return true;
+			}
+
+			i -= 3;
+			j++;
+		}
+		else
+		{
+			break;
+		}
+	}
+
+	return false;
+}
+
 int main()
 {
     char gameBoard[9]
@@ -145,7 +207,8 @@ int main()
     {
         displayGameBoard(gameBoard, 9);
 
-        matchFound = rowMatch(gameBoard, currPlayer, 9) || columnMatch(gameBoard, currPlayer, 9);
+        matchFound = rowMatch(gameBoard, currPlayer, 9) || columnMatch(gameBoard, currPlayer, 9) ||
+            diagonalMatch(gameBoard, currPlayer, 9);
         if (matchFound)
         {
             break;
