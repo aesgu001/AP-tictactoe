@@ -63,11 +63,25 @@ int main()
     };
 
     char playerOne = 'X';
-    // char playerTwo = 'O';
-    char currPlayer = playerOne;
+    char playerTwo = 'O';
+    char currPlayer = playerTwo;
 
-    displayGameBoard(gameBoard, 9);
-    enterBoardPosition(gameBoard, currPlayer, 9);
+    for (int i = 0; i < 9; ++i)
+    {
+        displayGameBoard(gameBoard, 9);
+
+        if (currPlayer == playerOne)
+        {
+            currPlayer = playerTwo;
+        }
+        else
+        {
+            currPlayer = playerOne;
+        }
+
+        int boardPos = enterBoardPosition(gameBoard, currPlayer, 9);
+        gameBoard[boardPos - 1] = currPlayer;
+    }
     
     return 0;
 }
