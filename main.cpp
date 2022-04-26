@@ -35,7 +35,7 @@ int enterBoardPosition(char gameBoard[], char currPlayer, int boardSize)
     int position = 0;
     bool badInput = true;
 
-    std::cout << "Player " << currPlayer << ", enter a position <1 - " << boardSize << ">: ";  
+    std::cout << "Player " << currPlayer << ", enter a position (1 - " << boardSize << "): ";  
     while (badInput)
     {
         badInput = false;
@@ -221,40 +221,63 @@ int main()
 
     char playerOne = 'X';
     char playerTwo = 'O';
-    char currPlayer = playerTwo;
-    bool matchFound = false;
 
-    while (true)
+    bool repeatGame = true;
+    while (repeatGame)
     {
-        displayGameBoard(gameBoard, 9);
-
-        matchFound = rowMatch(gameBoard, currPlayer, 9) || columnMatch(gameBoard, currPlayer, 9) ||
-            diagonalMatch(gameBoard, currPlayer, 9);
-        if (matchFound || noMoreMoves(gameBoard, 9))
+        for (int i = 0; i < 9; ++i)
         {
-            break;
+            gameBoard[i] = i + 1 + 48;
         }
+        char currPlayer = playerTwo;
+        bool matchFound = false;
 
-        if (currPlayer == playerOne)
+        while (true)
         {
-            currPlayer = playerTwo;
+            displayGameBoard(gameBoard, 9);
+
+            matchFound = rowMatch(gameBoard, currPlayer, 9) || columnMatch(gameBoard, currPlayer, 9) ||
+                diagonalMatch(gameBoard, currPlayer, 9);
+            if (matchFound || noMoreMoves(gameBoard, 9))
+            {
+                break;
+            }
+
+            if (currPlayer == playerOne)
+            {
+                currPlayer = playerTwo;
+            }
+            else
+            {
+                currPlayer = playerOne;
+            }
+
+            int boardPos = enterBoardPosition(gameBoard, currPlayer, 9);
+            gameBoard[boardPos - 1] = currPlayer;
+        }
+        
+        if (matchFound)
+        {
+            std::cout << "Player " << currPlayer << " WINS!\n";
         }
         else
         {
-            currPlayer = playerOne;
+            std::cout << "DRAW!\n";
         }
 
-        int boardPos = enterBoardPosition(gameBoard, currPlayer, 9);
-        gameBoard[boardPos - 1] = currPlayer;
-    }
-    
-    if (matchFound)
-    {
-        std::cout << "Player " << currPlayer << " WINS!\n";
-    }
-    else
-    {
-        std::cout << "DRAW!\n";
+        int choice = 0;
+        std::cout << "Game Over (1: Restart, 2: Quit): ";
+        std::cin >> choice;
+        if (choice == 1)
+        {
+            repeatGame = true;
+        }
+        else
+        {
+            repeatGame = false;
+        }
+        std::cout << "\n";
+        
     }
 
     return 0;
