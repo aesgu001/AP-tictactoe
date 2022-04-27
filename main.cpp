@@ -223,7 +223,8 @@ bool noMoreMoves(char gameBoard[], int boardSize)
 *
 *	@return The highest score (as maximizer) or lowest score (as minimizer).
 */
-int evaluatePosition(char gameBoard[], int boardSize, int depth, char player, char opponent, bool isMax)
+int evaluatePosition(char gameBoard[], int boardSize, int depth, char player, char opponent, bool isMax,
+    int alpha, int beta)
 {
     if (rowMatch(gameBoard, player, boardSize) || columnMatch(gameBoard, player, boardSize) ||
         diagonalMatch(gameBoard, player, boardSize))
@@ -248,12 +249,15 @@ int evaluatePosition(char gameBoard[], int boardSize, int depth, char player, ch
             if (gameBoard[i] == static_cast<char>(i + 1 + 48))
             {
                 gameBoard[i] = player;
-                int score = evaluatePosition(gameBoard, boardSize, depth + 1, player, opponent, false);
+                int score = evaluatePosition(gameBoard, boardSize, depth + 1, player, opponent, false,
+                    alpha, beta);
                 gameBoard[i] = static_cast<char>(i + 1 + 48);
 
-                if (score > maxScore)
+                maxScore = std::max(score, maxScore);
+                alpha = std::max(maxScore, alpha);
+                if (beta <= alpha)
                 {
-                    maxScore = score;
+                    break;
                 }
             }
         }
@@ -268,12 +272,15 @@ int evaluatePosition(char gameBoard[], int boardSize, int depth, char player, ch
             if (gameBoard[i] == static_cast<char>(i + 1 + 48))
             {
                 gameBoard[i] = opponent;
-                int score = evaluatePosition(gameBoard, boardSize, depth + 1, player, opponent, true);
+                int score = evaluatePosition(gameBoard, boardSize, depth + 1, player, opponent, true,
+                    alpha, beta);
                 gameBoard[i] = static_cast<char>(i + 1 + 48);
 
-                if (score < minScore)
+                minScore = std::min(score, minScore);
+                beta = std::min(minScore, beta);
+                if (beta <= alpha)
                 {
-                    minScore = score;
+                    break;
                 }
             }
         }
@@ -302,7 +309,8 @@ int findOptimalPosition(char gameBoard[], char currPlayer, char currOpponent, in
         if (gameBoard[i] == static_cast<char>(i + 1 + 48))
         {
             gameBoard[i] = currPlayer;
-            int score = evaluatePosition(gameBoard, boardSize, 0, currPlayer, currOpponent, false);
+            int score = evaluatePosition(gameBoard, boardSize, 0, currPlayer, currOpponent, false,
+                INT32_MIN, INT32_MAX);
             gameBoard[i] = static_cast<char>(i + 1 + 48);
 
             if (score > maxScore)
