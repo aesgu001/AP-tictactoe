@@ -1,6 +1,35 @@
 #include <iostream>
 
 /*
+*  Reads user option from standard input.
+*
+*  @param   numOptions   the number of possible options.
+*
+*  @return  A valid option.
+*/
+int enterOption(int numOptions)
+{
+    int option = 0;
+    
+    std::cout << "Enter option: ";
+    while (true)
+    {
+        std::cin >> option;
+        if (option <= 0 || option > numOptions)
+        {
+            std::cout << "ERROR! Please enter a valid option: ";
+        }
+        else
+        {
+            break;
+        }
+    }   
+    std::cout << "\n";
+
+    return option;
+}
+
+/*
 *  Writes the current game board to standard output.
 *
 *  @param   gameBoard   the game board to display.
@@ -338,31 +367,26 @@ int main()
     char playerOne = 'X';
     char playerTwo = 'O';
 
-    bool repeatGame = true;
-    while (repeatGame)
+    while (true)
     {
+        int modeOption = 0;
+        int playerOption = 0;
+        int gameOverOption = 0;
+
         bool isPCOne = false;
         bool isPCTwo = false;
-
-        int option = 0;
         
         std::cout << "SELECT MODE\n"
             << "(1) Player vs AI\n"
             << "(2) Player vs. Player\n\n";
-        std::cout << "Enter option: ";
-        std::cin >> option;
-        std::cout << "\n";
-
-        if (option == 1)
+        modeOption = enterOption(2);
+        if (modeOption == 1)
         {
             std::cout << "SELECT PLAYER\n"
                 << "(1) Player " << playerOne << "\n"
                 << "(2) Player " << playerTwo << "\n\n";
-            std::cout << "Enter option: ";
-            std::cin >> option;
-            std::cout << "\n";
-
-            if (option == 1)
+            playerOption = enterOption(2);
+            if (playerOption == 1)
             {
                 isPCOne = true;
             }
@@ -430,23 +454,16 @@ int main()
         }
         else
         {
-            std::cout << "DRAW!\n\n";
+            std::cout << "It's a DRAW!\n\n";
         }
 
         std::cout << "GAME OVER\n"
             << "(1) Restart\n"
             << "(2) Quit\n\n";
-        std::cout << "Enter option: ";
-        std::cin >> option;
-        std::cout << "\n";
-
-        if (option == 1)
+        gameOverOption = enterOption(2);
+        if (gameOverOption == 2)
         {
-            repeatGame = true;
-        }
-        else
-        {
-            repeatGame = false;
+            break;
         }
         
     }
