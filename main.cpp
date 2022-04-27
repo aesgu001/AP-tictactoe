@@ -338,12 +338,45 @@ int main()
     char playerOne = 'X';
     char playerTwo = 'O';
 
-    bool isPCOne = true;
-    bool isPCTwo = false;
-
     bool repeatGame = true;
     while (repeatGame)
     {
+        bool isPCOne = false;
+        bool isPCTwo = false;
+
+        int option = 0;
+        
+        std::cout << "SELECT MODE\n"
+            << "(1) Player vs AI\n"
+            << "(2) Player vs. Player\n\n";
+        std::cout << "Enter option: ";
+        std::cin >> option;
+        std::cout << "\n";
+
+        if (option == 1)
+        {
+            std::cout << "SELECT PLAYER\n"
+                << "(1) Player " << playerOne << "\n"
+                << "(2) Player " << playerTwo << "\n\n";
+            std::cout << "Enter option: ";
+            std::cin >> option;
+            std::cout << "\n";
+
+            if (option == 1)
+            {
+                isPCOne = true;
+            }
+            else
+            {
+                isPCTwo = true;
+            }
+        }
+        else
+        {
+            isPCOne = true;
+            isPCTwo = true;
+        }
+
         for (int i = 0; i < 9; ++i)
         {
             gameBoard[i] = static_cast<char>(i + 1 + 48);
@@ -393,17 +426,21 @@ int main()
         
         if (matchFound)
         {
-            std::cout << "Player " << currPlayer << " WINS!\n";
+            std::cout << "Player " << currPlayer << " WINS!\n\n";
         }
         else
         {
-            std::cout << "DRAW!\n";
+            std::cout << "DRAW!\n\n";
         }
 
-        int choice = 0;
-        std::cout << "Game Over (1: Restart, 2: Quit): ";
-        std::cin >> choice;
-        if (choice == 1)
+        std::cout << "GAME OVER\n"
+            << "(1) Restart\n"
+            << "(2) Quit\n\n";
+        std::cout << "Enter option: ";
+        std::cin >> option;
+        std::cout << "\n";
+
+        if (option == 1)
         {
             repeatGame = true;
         }
@@ -411,7 +448,6 @@ int main()
         {
             repeatGame = false;
         }
-        std::cout << "\n";
         
     }
 
