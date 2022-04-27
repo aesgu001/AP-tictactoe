@@ -212,7 +212,7 @@ bool noMoreMoves(char gameBoard[], int boardSize)
 
 /*
 *	Iterates through all possible states on the current game board until the end state is reached.
-*   Then backtracks to the return best (or worst) possible score.
+*   Then backtracks, returning the best (or worst) possible score.
 *
 *	@param	gameBoard   the current gameboard.
 *	@param	boardSize   the game board's size.
@@ -220,6 +220,8 @@ bool noMoreMoves(char gameBoard[], int boardSize)
 *	@param	player      the maximizer.
 *	@param	opponent    the minimizer.
 *   @param  isMax       determines the next player.
+*   @param  alpha       value to compare for pruning.
+*   @param  beta        value to compare for pruning.
 *
 *	@return The highest score (as maximizer) or lowest score (as minimizer).
 */
