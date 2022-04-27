@@ -54,6 +54,33 @@ int enterBoardPosition(char gameBoard[], char currPlayer, int boardSize)
 }
 
 /*
+*	Chooses the best possible position, after evaluating the
+*	current board.
+*
+*	@param	gameBoard   the current game board.
+*	@param  currPlayer  the player with the turn.
+*	@param  boardSize   the game board's size.
+*
+*	@return A valid, optimal board position.
+*/
+int findOptimalPosition(char gameBoard[], char currPlayer, int boardSize)
+{
+    int position = 0;
+
+    // TODO: evaluate position
+    for (int i = 0; i < boardSize; ++i)
+    {
+        if (gameBoard[i] == static_cast<char>(i + 1 + 48))
+        {
+            position = i;
+            break;
+        }
+    }
+
+    return position + 1;
+}
+
+/*
 *	Checks if the current player has made a row match.
 *
 *   @param  gameBoard   the current game board.
@@ -222,6 +249,9 @@ int main()
     char playerOne = 'X';
     char playerTwo = 'O';
 
+    bool isPCOne = true;
+    bool isPCTwo = false;
+
     bool repeatGame = true;
     while (repeatGame)
     {
@@ -230,6 +260,8 @@ int main()
             gameBoard[i] = i + 1 + 48;
         }
         char currPlayer = playerTwo;
+        bool currIsPC = isPCTwo;
+
         bool matchFound = false;
 
         while (true)
@@ -246,13 +278,24 @@ int main()
             if (currPlayer == playerOne)
             {
                 currPlayer = playerTwo;
+                currIsPC = isPCTwo;
             }
             else
             {
                 currPlayer = playerOne;
+                currIsPC = isPCOne;
             }
 
-            int boardPos = enterBoardPosition(gameBoard, currPlayer, 9);
+            int boardPos = 0;
+            if (currIsPC)
+            {
+                boardPos = enterBoardPosition(gameBoard, currPlayer, 9);
+            }
+            else
+            {
+                boardPos = findOptimalPosition(gameBoard, currPlayer, 9);
+                std::cout << "Player " << currPlayer << "'s Turn: " << boardPos << "\n\n";
+            }
             gameBoard[boardPos - 1] = currPlayer;
         }
         
