@@ -54,33 +54,6 @@ int enterBoardPosition(char gameBoard[], char currPlayer, int boardSize)
 }
 
 /*
-*	Chooses the best possible position, after evaluating the
-*	current board.
-*
-*	@param	gameBoard   the current game board.
-*	@param  currPlayer  the player with the turn.
-*	@param  boardSize   the game board's size.
-*
-*	@return A valid, optimal board position.
-*/
-int findOptimalPosition(char gameBoard[], char currPlayer, int boardSize)
-{
-    int position = 0;
-
-    // TODO: evaluate position
-    for (int i = 0; i < boardSize; ++i)
-    {
-        if (gameBoard[i] == static_cast<char>(i + 1 + 48))
-        {
-            position = i;
-            break;
-        }
-    }
-
-    return position + 1;
-}
-
-/*
 *	Checks if the current player has made a row match.
 *
 *   @param  gameBoard   the current game board.
@@ -237,6 +210,112 @@ bool noMoreMoves(char gameBoard[], int boardSize)
 	return true;
 }
 
+/*
+*	Iterates through all possible states on the current game board until the end state is reached.
+*   Then backtracks to the return best (or worst) possible score.
+*
+*	@param	gameBoard   the current gameboard.
+*	@param	boardSize   the game board's size.
+*	@param	depth       the current search depth.
+*	@param	player      the maximizer.
+*	@param	opponent    the minimizer.
+*   @param  isMax       determines the next player.
+*
+*	@return The highest score (as maximizer) or lowest score (as minimizer).
+*/
+int evaluatePosition(char gameBoard[], int boardSize, int depth, char player, char opponent, bool isMax)
+{
+    if (rowMatch(gameBoard, player, boardSize) || columnMatch(gameBoard, player, boardSize) ||
+        diagonalMatch(gameBoard, player, boardSize))
+    {
+        return boardSize - depth;
+    }
+    else if (rowMatch(gameBoard, opponent, boardSize) || columnMatch(gameBoard, opponent, boardSize) ||
+        diagonalMatch(gameBoard, opponent, boardSize))
+    {
+        return depth - boardSize;
+    }
+    else if (noMoreMoves(gameBoard, boardSize))
+    {
+        return 0;
+    }
+
+    if (isMax)
+    {
+        int maxScore = INT32_MIN;
+        for (int i = 0; i < boardSize; ++i)
+        {
+            if (gameBoard[i] == static_cast<char>(i + 1 + 48))
+            {
+                gameBoard[i] = player;
+                int score = evaluatePosition(gameBoard, boardSize, depth + 1, player, opponent, false);
+                gameBoard[i] = static_cast<char>(i + 1 + 48);
+
+                if (score > maxScore)
+                {
+                    maxScore = score;
+                }
+            }
+        }
+
+        return maxScore;
+    }
+    else
+    {
+        int minScore = INT32_MAX;
+        for (int i = 0; i < boardSize; ++i)
+        {
+            if (gameBoard[i] == static_cast<char>(i + 1 + 48))
+            {
+                gameBoard[i] = opponent;
+                int score = evaluatePosition(gameBoard, boardSize, depth + 1, player, opponent, true);
+                gameBoard[i] = static_cast<char>(i + 1 + 48);
+
+                if (score < minScore)
+                {
+                    minScore = score;
+                }
+            }
+        }
+
+        return minScore;
+    }
+}
+
+/*
+*	Chooses the best possible position, after evaluating the current board.
+*
+*	@param	gameBoard       the current game board.
+*	@param  currPlayer      the player with the turn.
+*   @param  currOpponent    the opposing player.
+*	@param  boardSize       the game board's size.
+*
+*	@return A valid, optimal board position.
+*/
+int findOptimalPosition(char gameBoard[], char currPlayer, char currOpponent, int boardSize)
+{
+    int position = 0;
+    int maxScore = INT32_MIN;
+
+    for (int i = 0; i < boardSize; ++i)
+    {
+        if (gameBoard[i] == static_cast<char>(i + 1 + 48))
+        {
+            gameBoard[i] = currPlayer;
+            int score = evaluatePosition(gameBoard, boardSize, 0, currPlayer, currOpponent, false);
+            gameBoard[i] = static_cast<char>(i + 1 + 48);
+
+            if (score > maxScore)
+            {
+                maxScore = score;
+                position = i;
+            }
+        }
+    }
+
+    return position + 1;
+}
+
 int main()
 {
     char gameBoard[9]
@@ -257,9 +336,10 @@ int main()
     {
         for (int i = 0; i < 9; ++i)
         {
-            gameBoard[i] = i + 1 + 48;
+            gameBoard[i] = static_cast<char>(i + 1 + 48);
         }
         char currPlayer = playerTwo;
+        char currOpponent = playerOne;
         bool currIsPC = isPCTwo;
 
         bool matchFound = false;
@@ -278,11 +358,13 @@ int main()
             if (currPlayer == playerOne)
             {
                 currPlayer = playerTwo;
+                currOpponent = playerOne;
                 currIsPC = isPCTwo;
             }
             else
             {
                 currPlayer = playerOne;
+                currOpponent = playerTwo;
                 currIsPC = isPCOne;
             }
 
@@ -293,7 +375,7 @@ int main()
             }
             else
             {
-                boardPos = findOptimalPosition(gameBoard, currPlayer, 9);
+                boardPos = findOptimalPosition(gameBoard, currPlayer, currOpponent, 9);
                 std::cout << "Player " << currPlayer << "'s Turn: " << boardPos << "\n\n";
             }
             gameBoard[boardPos - 1] = currPlayer;
