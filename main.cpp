@@ -10,7 +10,7 @@
 int enterOption(int numOptions)
 {
     int option = 0;
-    
+
     std::cout << "Enter option: ";
     while (true)
     {
@@ -357,24 +357,28 @@ int findOptimalPosition(char gameBoard[], char currPlayer, char currOpponent, in
 
 int main()
 {
-    char gameBoard[9]
-    {
-        '1', '2', '3',
-        '4', '5', '6',
-        '7', '8', '9'
-    };
-
-    char playerOne = 'X';
-    char playerTwo = 'O';
-
     while (true)
     {
         int modeOption = 0;
         int playerOption = 0;
         int gameOverOption = 0;
 
+        char gameBoard[9]
+        {
+            '1', '2', '3',
+            '4', '5', '6',
+            '7', '8', '9'
+        };
+
+        char playerOne = 'X';
+        char playerTwo = 'O';
+        char currPlayer = playerTwo;
+        char currOpponent = playerOne;
+
         bool isPCOne = false;
         bool isPCTwo = false;
+        bool currIsPC = isPCTwo;
+        bool matchFound = false;
         
         std::cout << "SELECT MODE\n"
             << "(1) Player vs AI\n"
@@ -401,18 +405,10 @@ int main()
             isPCTwo = true;
         }
 
-        for (int i = 0; i < 9; ++i)
-        {
-            gameBoard[i] = static_cast<char>(i + 1 + 48);
-        }
-        char currPlayer = playerTwo;
-        char currOpponent = playerOne;
-        bool currIsPC = isPCTwo;
-
-        bool matchFound = false;
-
         while (true)
         {
+            int boardPos = 0;
+
             displayGameBoard(gameBoard, 9);
 
             matchFound = rowMatch(gameBoard, currPlayer, 9) || columnMatch(gameBoard, currPlayer, 9) ||
@@ -435,7 +431,6 @@ int main()
                 currIsPC = isPCOne;
             }
 
-            int boardPos = 0;
             if (currIsPC)
             {
                 boardPos = enterBoardPosition(gameBoard, currPlayer, 9);
@@ -464,8 +459,7 @@ int main()
         if (gameOverOption == 2)
         {
             break;
-        }
-        
+        }      
     }
 
     return 0;
