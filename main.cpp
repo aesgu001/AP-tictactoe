@@ -275,12 +275,15 @@ int evaluatePosition(char gameBoard[], int boardSize, int depth, char player, ch
     if (isMax)
     {
         int maxScore = INT32_MIN;
+
         for (int i = 0; i < boardSize; ++i)
         {
+            int score = 0;
+
             if (gameBoard[i] == static_cast<char>(i + 1 + 48))
             {
                 gameBoard[i] = player;
-                int score = evaluatePosition(gameBoard, boardSize, depth + 1, player, opponent, false,
+                score = evaluatePosition(gameBoard, boardSize, depth + 1, player, opponent, false,
                     alpha, beta);
                 gameBoard[i] = static_cast<char>(i + 1 + 48);
 
@@ -298,12 +301,15 @@ int evaluatePosition(char gameBoard[], int boardSize, int depth, char player, ch
     else
     {
         int minScore = INT32_MAX;
+
         for (int i = 0; i < boardSize; ++i)
         {
+            int score = 0;
+
             if (gameBoard[i] == static_cast<char>(i + 1 + 48))
             {
                 gameBoard[i] = opponent;
-                int score = evaluatePosition(gameBoard, boardSize, depth + 1, player, opponent, true,
+                score = evaluatePosition(gameBoard, boardSize, depth + 1, player, opponent, true,
                     alpha, beta);
                 gameBoard[i] = static_cast<char>(i + 1 + 48);
 
@@ -337,10 +343,12 @@ int findOptimalPosition(char gameBoard[], char currPlayer, char currOpponent, in
 
     for (int i = 0; i < boardSize; ++i)
     {
+        int score = 0;
+
         if (gameBoard[i] == static_cast<char>(i + 1 + 48))
         {
             gameBoard[i] = currPlayer;
-            int score = evaluatePosition(gameBoard, boardSize, 0, currPlayer, currOpponent, false,
+            score = evaluatePosition(gameBoard, boardSize, 0, currPlayer, currOpponent, false,
                 INT32_MIN, INT32_MAX);
             gameBoard[i] = static_cast<char>(i + 1 + 48);
 
