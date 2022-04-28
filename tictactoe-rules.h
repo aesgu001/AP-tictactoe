@@ -1,3 +1,5 @@
+#pragma once
+
 /*
 *	Checks if the current player has made a row match on the game board.
 *
