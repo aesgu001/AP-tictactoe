@@ -7,10 +7,19 @@ CFLAGS = -g -Wall -Werror
 # Target executable
 TARGET = AP-tictactoe
 
+# Object files
+OBJ = main.o tictactoe-rules.o
+
 all: $(TARGET)
 
-$(TARGET): main.cpp
-	$(CC) $(CFLAGS) -o $(TARGET) main.cpp
+$(TARGET): $(OBJ)
+	$(CC) $(CFLAGS) -o $(TARGET) $(OBJ)
+
+main.o: tictactoe-rules.o main.cpp
+	$(CC) $(CFLAGS) -c main.cpp
+
+tictactoe-rules.o: tictactoe-rules.h tictactoe-rules.cpp
+	$(CC) $(CFLAGS) -c tictactoe-rules.cpp
 
 clean:
-	$(RM) $(TARGET)
+	$(RM) $(TARGET) $(OBJ)
