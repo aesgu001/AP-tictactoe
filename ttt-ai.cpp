@@ -1,4 +1,4 @@
-#include "tictactoe-ai.h"
+#include "ttt-ai.h"
 
 int evaluatePosition(char gameBoard[], int boardSize, int depth, char player, char opponent, bool isMax,
     int alpha, int beta)

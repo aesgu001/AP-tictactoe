@@ -1,15 +1,5 @@
-#include "tictactoe-ai.h"
-#include "tictactoe-rules.h"
+#include "ttt-main.h"
 
-#include <iostream>
-
-/*
-*  Reads user option from standard input.
-*
-*  @param   numOptions   the number of possible options.
-*
-*  @return  A valid option.
-*/
 int enterOption(int numOptions)
 {
     int option = 0;
@@ -32,14 +22,6 @@ int enterOption(int numOptions)
     return option;
 }
 
-/*
-*  Writes the current game board to standard output.
-*
-*  @param   gameBoard   the game board to display.
-*  @param   boardSize   the game board's size.
-*
-*  @return  None.
-*/
 void displayGameBoard(char gameBoard[], int boardSize)
 {
     for (int i = 0; i < boardSize; ++i)
@@ -53,15 +35,6 @@ void displayGameBoard(char gameBoard[], int boardSize)
     std::cout << "\n";
 }
 
-/*
-*  Reads a board position from standard input.
-*
-*  @param   gameBoard   the current game board.
-*  @param   currPlayer  the player with the turn.
-*  @param   boardSize   the game board's size.
-*
-*  @return  A valid board position.
-*/
 int enterBoardPosition(char gameBoard[], char currPlayer, int boardSize)
 {
     int position = 0;

@@ -1,6 +1,6 @@
 #pragma once
 
-#include "tictactoe-rules.h"
+#include "ttt-rules.h"
 
 #include <algorithm>    // std::max, std::min
 #include <climits>      // INT_MAX, INT_MIN

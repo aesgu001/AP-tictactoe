@@ -1,4 +1,4 @@
-#include "tictactoe-rules.h"
+#include "ttt-rules.h"
 
 bool rowMatch(char gameBoard[], char currPlayer, int boardSize)
 {
