@@ -257,13 +257,15 @@ bool noMoreMoves(char gameBoard[], int boardSize)
 int evaluatePosition(char gameBoard[], int boardSize, int depth, char player, char opponent, bool isMax,
     int alpha, int beta)
 {
-    if (rowMatch(gameBoard, player, boardSize) || columnMatch(gameBoard, player, boardSize) ||
-        diagonalMatch(gameBoard, player, boardSize))
+    // Maximizer win condition
+    if (!isMax && (rowMatch(gameBoard, player, boardSize) || columnMatch(gameBoard, player, boardSize) ||
+        diagonalMatch(gameBoard, player, boardSize)))
     {
         return boardSize - depth;
     }
-    else if (rowMatch(gameBoard, opponent, boardSize) || columnMatch(gameBoard, opponent, boardSize) ||
-        diagonalMatch(gameBoard, opponent, boardSize))
+    // Minimizer win condition
+    else if (isMax && (rowMatch(gameBoard, opponent, boardSize) || columnMatch(gameBoard, opponent, boardSize) ||
+        diagonalMatch(gameBoard, opponent, boardSize)))
     {
         return depth - boardSize;
     }
@@ -291,6 +293,7 @@ int evaluatePosition(char gameBoard[], int boardSize, int depth, char player, ch
                 alpha = std::max(maxScore, alpha);
                 if (beta <= alpha)
                 {
+                    // Skip remaining iterations; beta guaranteed for minimizer
                     break;
                 }
             }
@@ -317,6 +320,7 @@ int evaluatePosition(char gameBoard[], int boardSize, int depth, char player, ch
                 beta = std::min(minScore, beta);
                 if (beta <= alpha)
                 {
+                    // Skip remaining iterations; alpha guaranteed for maximizer
                     break;
                 }
             }
@@ -349,7 +353,7 @@ int findOptimalPosition(char gameBoard[], char currPlayer, char currOpponent, in
         {
             gameBoard[i] = currPlayer;
             score = evaluatePosition(gameBoard, boardSize, 0, currPlayer, currOpponent, false,
-                INT32_MIN, INT32_MAX);
+                maxScore, INT32_MAX);
             gameBoard[i] = static_cast<char>(i + 1 + 48);
 
             if (score > maxScore)
