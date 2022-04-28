@@ -37,15 +37,18 @@ void selectModeAndPlayer(char, char, bool &, bool &);
 void displayGameBoard(char gameBoard[], int boardSize);
 
 /*
-*  Reads a board position from standard input.
+*   Specifies a board position and marks it. If the player is AI controlled, finds the best possible
+*   position after evaluating the current board.
 *
-*  @param   gameBoard   the current game board.
-*  @param   currPlayer  the player with the turn.
-*  @param   boardSize   the game board's size.
+*   @param  gameBoard       the current game board.
+*   @param  currPlayer      the player with the turn.
+*   @param  currOpponent    the opposing player.
+*   @param  currIsPC        is current player user controlled? 
+*   @param  boardSize       the game board's size.
 *
-*  @return  A valid board position.
+*   @return  None.
 */
-int enterBoardPosition(char gameBoard[], char currPlayer, int boardSize);
+void markGameBoard(char[], char, char, bool, int);
 
 /*
 *   Restarts the game with another round.

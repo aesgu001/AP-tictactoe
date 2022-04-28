@@ -61,27 +61,35 @@ void displayGameBoard(char gameBoard[], int boardSize)
     std::cout << "\n";
 }
 
-int enterBoardPosition(char gameBoard[], char currPlayer, int boardSize)
+void markGameBoard(char gameBoard[], char currPlayer, char currOpponent, bool currIsPC, int boardSize)
 {
-    int position = 0;
-    bool badInput = true;
+    int boardPos = 0;
 
-    std::cout << "Player " << currPlayer << ", enter a position (1 - " << boardSize << "): ";  
-    while (badInput)
+    if (currIsPC)
     {
-        badInput = false;
-        std::cin >> position;
-
-        if (position <= 0 || position > boardSize ||
-            gameBoard[position - 1] != static_cast<char>(position + 48))
+        std::cout << "Player " << currPlayer << ", enter a position (1 - " << boardSize << "): ";  
+        while (true)
         {
-            badInput = true;
-            std::cout << "ERROR! Please enter a valid position: ";
+            std::cin >> boardPos;
+            if (boardPos <= 0 || boardPos > boardSize ||
+                gameBoard[boardPos - 1] != static_cast<char>(boardPos + 48))
+            {
+                std::cout << "ERROR! Please enter a valid position: ";
+            }
+            else
+            {
+                break;
+            }
         }
+        std::cout << "\n";
     }
-    std::cout << "\n";
+    else
+    {
+        boardPos = findOptimalPosition(gameBoard, currPlayer, currOpponent, boardSize);
+        std::cout << "Player " << currPlayer << "'s turn: " << boardPos << "\n\n";
+    }
 
-    return position;
+    gameBoard[boardPos - 1] = currPlayer;
 }
 
 bool restartGame()
@@ -118,8 +126,6 @@ int main()
 
         while (true)
         {
-            int boardPos = 0;
-
             displayGameBoard(gameBoard, 9);
 
             if (currPlayer == playerOne)
@@ -135,16 +141,7 @@ int main()
                 currIsPC = isPCOne;
             }
 
-            if (currIsPC)
-            {
-                boardPos = enterBoardPosition(gameBoard, currPlayer, 9);
-            }
-            else
-            {
-                boardPos = findOptimalPosition(gameBoard, currPlayer, currOpponent, 9);
-                std::cout << "Player " << currPlayer << "'s Turn: " << boardPos << "\n\n";
-            }
-            gameBoard[boardPos - 1] = currPlayer;
+            markGameBoard(gameBoard, currPlayer, currOpponent, currIsPC, 9);
 
             matchFound = rowMatch(gameBoard, currPlayer, 9) || columnMatch(gameBoard, currPlayer, 9) ||
                 diagonalMatch(gameBoard, currPlayer, 9);
