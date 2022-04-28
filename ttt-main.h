@@ -15,6 +15,18 @@
 int enterOption(int numOptions);
 
 /*
+*   Selects the game mode and players to control from user input.
+*
+*   @param  playerOne   the player X.
+*   @param  playerTwo   the player O.
+*   @param  isPCOne     is player X user controlled?
+*   @param  isPCTwo     is player O user controlled?
+*
+*   @return  None.
+*/
+void selectModeAndPlayer(char, char, bool &, bool &);
+
+/*
 *  Writes the current game board to standard output.
 *
 *  @param   gameBoard   the game board to display.
@@ -34,3 +46,10 @@ void displayGameBoard(char gameBoard[], int boardSize);
 *  @return  A valid board position.
 */
 int enterBoardPosition(char gameBoard[], char currPlayer, int boardSize);
+
+/*
+*   Restarts the game with another round.
+*
+*   @return True if user enters 1 when prompted.
+*/
+bool restartGame();

@@ -22,6 +22,32 @@ int enterOption(int numOptions)
     return option;
 }
 
+void selectModeAndPlayer(char playerOne, char playerTwo, bool &isPCOne, bool &isPCTwo)
+{
+    std::cout << "SELECT MODE\n"
+        << "(1) Player vs AI\n"
+        << "(2) Player vs. Player\n\n";
+    if (enterOption(2) == 1)
+    {
+        std::cout << "SELECT PLAYER\n"
+            << "(1) Player " << playerOne << "\n"
+            << "(2) Player " << playerTwo << "\n\n";
+        if (enterOption(2) == 1)
+        {
+            isPCOne = true;
+        }
+        else
+        {
+            isPCTwo = true;
+        }
+    }
+    else
+    {
+        isPCOne = true;
+        isPCTwo = true;
+    }
+}
+
 void displayGameBoard(char gameBoard[], int boardSize)
 {
     for (int i = 0; i < boardSize; ++i)
@@ -58,14 +84,19 @@ int enterBoardPosition(char gameBoard[], char currPlayer, int boardSize)
     return position;
 }
 
+bool restartGame()
+{
+    std::cout << "GAME OVER\n"
+        << "(1) Restart\n"
+        << "(2) Quit\n\n";
+    
+    return enterOption(2) == 1;
+}
+
 int main()
 {
     while (true)
     {
-        int modeOption = 0;
-        int playerOption = 0;
-        int gameOverOption = 0;
-
         char gameBoard[9]
         {
             '1', '2', '3',
@@ -83,30 +114,7 @@ int main()
         bool currIsPC = isPCTwo;
         bool matchFound = false;
         
-        std::cout << "SELECT MODE\n"
-            << "(1) Player vs AI\n"
-            << "(2) Player vs. Player\n\n";
-        modeOption = enterOption(2);
-        if (modeOption == 1)
-        {
-            std::cout << "SELECT PLAYER\n"
-                << "(1) Player " << playerOne << "\n"
-                << "(2) Player " << playerTwo << "\n\n";
-            playerOption = enterOption(2);
-            if (playerOption == 1)
-            {
-                isPCOne = true;
-            }
-            else
-            {
-                isPCTwo = true;
-            }
-        }
-        else
-        {
-            isPCOne = true;
-            isPCTwo = true;
-        }
+        selectModeAndPlayer(playerOne, playerTwo, isPCOne, isPCTwo);
 
         while (true)
         {
@@ -157,14 +165,10 @@ int main()
             std::cout << "It's a DRAW!\n\n";
         }
 
-        std::cout << "GAME OVER\n"
-            << "(1) Restart\n"
-            << "(2) Quit\n\n";
-        gameOverOption = enterOption(2);
-        if (gameOverOption == 2)
+        if (!restartGame())
         {
             break;
-        }      
+        }
     }
 
     return 0;
