@@ -92,6 +92,20 @@ void markGameBoard(char gameBoard[], char currPlayer, char currOpponent, bool cu
     gameBoard[boardPos - 1] = currPlayer;
 }
 
+void declareGameResult(char gameBoard[], char currPlayer, bool matchFound, int boardSize)
+{
+    displayGameBoard(gameBoard, boardSize);
+
+    if (matchFound)
+    {
+        std::cout << "Player " << currPlayer << " WINS!\n\n";
+    }
+    else
+    {
+        std::cout << "It's a DRAW!\n\n";
+    }
+}
+
 bool restartGame()
 {
     std::cout << "GAME OVER\n"
@@ -151,16 +165,7 @@ int main()
             }
         }
 
-        displayGameBoard(gameBoard, 9);
-
-        if (matchFound)
-        {
-            std::cout << "Player " << currPlayer << " WINS!\n\n";
-        }
-        else
-        {
-            std::cout << "It's a DRAW!\n\n";
-        }
+        declareGameResult(gameBoard, currPlayer, matchFound, 9);
 
         if (!restartGame())
         {

@@ -3,7 +3,7 @@
 #include "ttt-ai.h"
 #include "ttt-rules.h"
 
-#include <iostream>
+#include <iostream> // std::cin/cout
 
 /*
 *  Reads user option from standard input.
@@ -49,6 +49,19 @@ void displayGameBoard(char gameBoard[], int boardSize);
 *   @return  None.
 */
 void markGameBoard(char[], char, char, bool, int);
+
+/*
+*   Displays the final state of the game board. Also announces the winner or that the game ended 
+*   in a tie.
+*
+*   @param  gameBoard   the game board.
+*   @param  currPlayer  the potential winner.
+*   @param  matchFound  is there a winning match?
+*   @param  boardSize   the game board's size.
+*
+*   @return None.
+*/
+void declareGameResult(char[], char, bool, int);
 
 /*
 *   Restarts the game with another round.
