@@ -423,13 +423,6 @@ int main()
 
             displayGameBoard(gameBoard, 9);
 
-            matchFound = rowMatch(gameBoard, currPlayer, 9) || columnMatch(gameBoard, currPlayer, 9) ||
-                diagonalMatch(gameBoard, currPlayer, 9);
-            if (matchFound || noMoreMoves(gameBoard, 9))
-            {
-                break;
-            }
-
             if (currPlayer == playerOne)
             {
                 currPlayer = playerTwo;
@@ -453,8 +446,17 @@ int main()
                 std::cout << "Player " << currPlayer << "'s Turn: " << boardPos << "\n\n";
             }
             gameBoard[boardPos - 1] = currPlayer;
+
+            matchFound = rowMatch(gameBoard, currPlayer, 9) || columnMatch(gameBoard, currPlayer, 9) ||
+                diagonalMatch(gameBoard, currPlayer, 9);
+            if (matchFound || noMoreMoves(gameBoard, 9))
+            {
+                break;
+            }
         }
-        
+
+        displayGameBoard(gameBoard, 9);
+
         if (matchFound)
         {
             std::cout << "Player " << currPlayer << " WINS!\n\n";
