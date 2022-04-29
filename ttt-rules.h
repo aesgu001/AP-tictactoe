@@ -9,7 +9,7 @@
 *
 *	@return  True if three consistent marks are found.
 */
-bool rowMatch(char gameBoard[], char currPlayer, int boardSize);
+bool rowMatch(char[], char, int);
 
 /*
 *	Checks if the current player has made a column match on the game board.
@@ -20,7 +20,7 @@ bool rowMatch(char gameBoard[], char currPlayer, int boardSize);
 *
 *	@return  True if three consistent marks are found.
 */
-bool columnMatch(char gameBoard[], char currPlayer, int boardSize);
+bool columnMatch(char[], char, int);
 
 /*
 *	Checks if the current player has made a diagonal match on the game board.
@@ -31,7 +31,7 @@ bool columnMatch(char gameBoard[], char currPlayer, int boardSize);
 *
 *	@return  True if three consistent marks are found.
 */
-bool diagonalMatch(char gameBoard[], char currPlayer, int boardSize);
+bool diagonalMatch(char[], char, int);
 
 /*
 *   Checks if the player has made a row, column, or diagonal match.
@@ -52,4 +52,4 @@ bool findMatch(char[], char, int);
 *
 *	@return  True if there are no numbered positions on the game board.
 */
-bool noMoreMoves(char gameBoard[], int boardSize);
+bool noMoreMoves(char[], int);

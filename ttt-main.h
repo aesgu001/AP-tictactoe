@@ -12,7 +12,7 @@
 *
 *  @return  A valid option.
 */
-int enterOption(int numOptions);
+int enterOption(int);
 
 /*
 *   Selects the game mode and players to control from user input.
@@ -34,7 +34,7 @@ void selectModeAndPlayer(char, char, bool &, bool &);
 *
 *  @return  None.
 */
-void displayGameBoard(char gameBoard[], int boardSize);
+void displayGameBoard(char[], int);
 
 /*
 *   Specifies a board position and marks it. If the player is AI controlled, finds the best possible

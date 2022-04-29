@@ -20,8 +20,8 @@
 *
 *	@return The highest score (as maximizer) or lowest score (as minimizer).
 */
-int evaluatePosition(char gameBoard[], int boardSize, int depth, char player, char opponent, bool isMax,
-    int alpha, int beta);
+int evaluatePosition(char[], int, int, char, char, bool,
+    int, int);
 
 /*
 *	Chooses the best possible position, after evaluating the current board.
@@ -33,4 +33,4 @@ int evaluatePosition(char gameBoard[], int boardSize, int depth, char player, ch
 *
 *	@return A valid, optimal board position.
 */
-int findOptimalPosition(char gameBoard[], char currPlayer, char currOpponent, int boardSize);
+int findOptimalPosition(char[], char, char, int);
