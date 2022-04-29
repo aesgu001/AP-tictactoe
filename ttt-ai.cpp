@@ -4,14 +4,12 @@ int evaluatePosition(char gameBoard[], int boardSize, int depth, char player, ch
     int alpha, int beta)
 {
     // Maximizer win condition
-    if (!isMax && (rowMatch(gameBoard, player, boardSize) || columnMatch(gameBoard, player, boardSize) ||
-        diagonalMatch(gameBoard, player, boardSize)))
+    if (!isMax && findMatch(gameBoard, player, boardSize))
     {
         return boardSize - depth;
     }
     // Minimizer win condition
-    else if (isMax && (rowMatch(gameBoard, opponent, boardSize) || columnMatch(gameBoard, opponent, boardSize) ||
-        diagonalMatch(gameBoard, opponent, boardSize)))
+    else if (isMax && findMatch(gameBoard, opponent, boardSize))
     {
         return depth - boardSize;
     }

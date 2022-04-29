@@ -34,6 +34,17 @@ bool columnMatch(char gameBoard[], char currPlayer, int boardSize);
 bool diagonalMatch(char gameBoard[], char currPlayer, int boardSize);
 
 /*
+*   Checks if the player has made a row, column, or diagonal match.
+*
+*   @param  gameBoard   the current game board.
+*   @param  currPlayer  the player with the turn.
+*   @param  boardSize   the game board's size.
+*
+*   @return True if any of the three matches is found.
+*/
+bool findMatch(char[], char, int);
+
+/*
 *	Checks if there are no more moves available on the game board.
 *
 *   @param  gameBoard   the current game board.

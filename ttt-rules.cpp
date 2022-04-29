@@ -109,6 +109,12 @@ bool diagonalMatch(char gameBoard[], char currPlayer, int boardSize)
 	return false;
 }
 
+bool findMatch(char gameBoard[], char currPlayer, int boardSize)
+{
+	return rowMatch(gameBoard, currPlayer, boardSize) || columnMatch(gameBoard, currPlayer, boardSize) ||
+		diagonalMatch(gameBoard, currPlayer, boardSize);
+}
+
 bool noMoreMoves(char gameBoard[], int boardSize)
 {
     for (int i = 0; i < boardSize; i++)

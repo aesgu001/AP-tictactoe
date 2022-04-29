@@ -157,8 +157,7 @@ int main()
 
             markGameBoard(gameBoard, currPlayer, currOpponent, currIsPC, 9);
 
-            matchFound = rowMatch(gameBoard, currPlayer, 9) || columnMatch(gameBoard, currPlayer, 9) ||
-                diagonalMatch(gameBoard, currPlayer, 9);
+            matchFound = findMatch(gameBoard, currPlayer, 9);
             if (matchFound || noMoreMoves(gameBoard, 9))
             {
                 break;
