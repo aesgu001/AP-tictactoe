@@ -6,21 +6,21 @@ bool rowMatch(char gameBoard[], char currPlayer, int boardSize)
     int i = 0;     // Board iterator by row
     int j = 0;     // Board iterator by column
 
-    while (i < boardSize)
+    while (i < boardSize / 3)
     {
-        if (gameBoard[i + j] == currPlayer)
+        if (gameBoard[(i * 3) + j] == currPlayer)
         {
             if (++count >= 3)
             {
                 return true;
             }
 
-            j++;
+            ++j;
         }
         else
         {
             count = 0;
-            i += 3;
+            ++i;
             j = 0;
         }
     }
@@ -36,20 +36,20 @@ bool columnMatch(char gameBoard[], char currPlayer, int boardSize)
 
     while (j < boardSize / 3)
     {
-        if (gameBoard[i + j] == currPlayer)
+        if (gameBoard[(i * 3) + j] == currPlayer)
         {
             if (++count >= 3)
             {
                 return true;
             }
 
-            i += 3;
+            ++i;
         }
         else
         {
             count = 0;
             i = 0;
-            j++;
+            ++j;
         }
     }
 
@@ -63,24 +63,24 @@ bool diagonalMatch(char gameBoard[], char currPlayer, int boardSize)
 	int j = 0;
 
 	// Move 1 space down, 1 space right
-	while (i < boardSize)
+	while (i < boardSize / 3)
 	{
-		if (gameBoard[i + j] == currPlayer)
+		if (gameBoard[(i * 3) + j] == currPlayer)
 		{
 			if (++count >= 3)
 			{
 				return true;
 			}
 
-			i += 3;
-			j++;
+			++i;
+			++j;
 		}
 
 		// Setup iterators for the upward match check
 		else
 		{
 			count = 0;
-			i = boardSize - 3;
+			i = (boardSize / 3) - 1;
 			j = 0;
 
 			break;
@@ -90,15 +90,15 @@ bool diagonalMatch(char gameBoard[], char currPlayer, int boardSize)
 	// Move 1 space up, 1 space right
 	while (i >= 0)
 	{
-		if (gameBoard[i + j] == currPlayer)
+		if (gameBoard[(i * 3) + j] == currPlayer)
 		{
 			if (++count >= 3)
 			{
 				return true;
 			}
 
-			i -= 3;
-			j++;
+			--i;
+			++j;
 		}
 		else
 		{
