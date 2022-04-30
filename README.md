@@ -1,5 +1,5 @@
 # AP-tictactoe
-A standard Tic-Tac-Toe program developed using C++. Players 'X' and 'O' take turns marking the 3 X 3 board, and whoever first makes a row, column, or diagonal match wins
+A standard Tic-Tac-Toe program developed using C++. Players 'X' and 'O' take turns marking the 3 x 3 board, and whoever first makes a row, column, or diagonal match wins
 the game. To place a mark, simply enter a number on the terminal to specify which free space on the board to use.
 ## Game Modes
 This program features two modes: **Player vs. AI** or **Player vs. Player**.
@@ -7,8 +7,13 @@ This program features two modes: **Player vs. AI** or **Player vs. Player**.
 | --- | --- |
 | ![](https://github.com/aesgu001/AP-tictactoe/blob/main/Player%20vs%20AI.gif) | ![](https://github.com/aesgu001/AP-tictactoe/blob/main/Player%20vs%20Player.gif) |
 
-The AI applies the minimax algorithm to optimize each move, becoming an unbeatable opponent.
-With alpha-beta pruning, computing the first move is significantly reduced roughly by 90%!
+**Player vs. Player** is a straightforward game of wits between two human players.
+### Unbeatable AI
+**Player vs. AI** sets users against an AI that makes decisions for the non-controlled player. The AI applies the [minimax algorithm](https://www.geeksforgeeks.org/minimax-algorithm-in-game-theory-set-1-introduction/?ref=lbp)
+to optimize each move, becoming an unbeatable opponent. However, the algorithm requires evaluating all possible states of the game board, meaning it has to check
+**all 549945 of them** just to determine its first move! One possible solution to address this issue is by implementing the [alpha-beta pruning algorithm](https://www.geeksforgeeks.org/minimax-algorithm-in-game-theory-set-4-alpha-beta-pruning/).
 | Without Alpha-Beta Pruning | With Alpha-Beta Pruning |
 | --- | --- |
 | ![](https://github.com/aesgu001/AP-tictactoe/blob/main/Minimax.gif) | ![](https://github.com/aesgu001/AP-tictactoe/blob/main/Alpha-Beta%20Pruning.gif) |
+
+As shown above, the alpha-beta pruning algorithm significantly reduced the number of searches for its first move roughly by 90%!
