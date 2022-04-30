@@ -5,10 +5,10 @@ the game. To place a mark, simply enter a number on the terminal to specify whic
 This program features two modes: **Player vs. AI** or **Player vs. Player**.
 | Player vs. AI   | Player vs. Player |
 | --- | --- |
-| PvE GIF | PvP GIF |
+| ![](https://github.com/aesgu001/AP-tictactoe/blob/main/Player%20vs%20AI.gif) | ![](https://github.com/aesgu001/AP-tictactoe/blob/main/Player%20vs%20Player.gif) |
 
 The AI applies the minimax algorithm to optimize each move, becoming an unbeatable opponent.
 With alpha-beta pruning, computing the first move is significantly reduced roughly by 90%!
 | Without Alpha-Beta Pruning | With Alpha-Beta Pruning |
 | --- | --- |
-| Minimax GIF | Alpha-Beta Pruning GIF |
+| ![](https://github.com/aesgu001/AP-tictactoe/blob/main/Minimax.gif) | ![](https://github.com/aesgu001/AP-tictactoe/blob/main/Alpha-Beta%20Pruning.gif) |
