@@ -12,8 +12,3 @@ With alpha-beta pruning, computing the first move is significantly reduced rough
 | Without Alpha-Beta Pruning | With Alpha-Beta Pruning |
 | --- | --- |
 | Minimax GIF | Alpha-Beta Pruning GIF |
-
-## Bugs/Issues
-### Non-numerical Input
-If the user enters anything other than a number on the terminal (i.e. letter, special character, etc.), an infinite loop will occur due to bad input reading. A possible
-fix would be to read each input as type string instead, and parse it to catch non-numerical characters.
