@@ -1,8 +1,12 @@
 #include "ttt-ai.h"
 
+// static int numEval;  // Tracks the number of state evaluations.
+
 int evaluatePosition(char gameBoard[], int boardSize, int depth, char player, char opponent, bool isMax,
     int alpha, int beta)
 {
+    // ++numEval;
+
     // Maximizer win condition
     if (!isMax && findMatch(gameBoard, player, boardSize))
     {
@@ -78,6 +82,7 @@ int findOptimalPosition(char gameBoard[], char currPlayer, char currOpponent, in
 {
     int position = 0;
     int maxScore = INT_MIN;
+    // numEval = 0;
 
     for (int i = 0; i < boardSize; ++i)
     {
@@ -97,6 +102,8 @@ int findOptimalPosition(char gameBoard[], char currPlayer, char currOpponent, in
             }
         }
     }
+
+    // std::cout << "Number of state evaluations: " << numEval << "\n";
 
     return position + 1;
 }
