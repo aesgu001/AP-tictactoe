@@ -1,9 +1,8 @@
 #pragma once
 
 #include "ttt-ai.h"
+#include "ttt-input.h"
 #include "ttt-rules.h"
-
-#include <iostream> // std::cin/cout
 
 /*
 *  Reads user option from standard input.

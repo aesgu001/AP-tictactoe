@@ -7,8 +7,7 @@ int enterOption(int numOptions)
     std::cout << "Enter option: ";
     while (true)
     {
-        std::cin >> option;
-        if (option <= 0 || option > numOptions)
+        if (!readInteger(option) || option <= 0 || option > numOptions)
         {
             std::cout << "ERROR! Please enter a valid option: ";
         }
@@ -70,8 +69,7 @@ void markGameBoard(char gameBoard[], char currPlayer, char currOpponent, bool cu
         std::cout << "Player " << currPlayer << ", enter a position (1 - " << boardSize << "): ";  
         while (true)
         {
-            std::cin >> boardPos;
-            if (boardPos <= 0 || boardPos > boardSize ||
+            if (!readInteger(boardPos) || boardPos <= 0 || boardPos > boardSize ||
                 gameBoard[boardPos - 1] != static_cast<char>(boardPos + 48))
             {
                 std::cout << "ERROR! Please enter a valid position: ";
