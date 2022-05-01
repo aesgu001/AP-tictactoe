@@ -24,7 +24,7 @@ Building and running this program takes 5 easy steps using the Linux terminal:
 ```
 git clone https://github.com/aesgu001/AP-tictactoe.git
 cd AP-tictactoe
-git checkout v1-00
+git checkout v1.0.0
 make
 ./AP-tictactoe
 ```
