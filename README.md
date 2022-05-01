@@ -1,5 +1,5 @@
 # AP-tictactoe
-A standard Tic-Tac-Toe program developed using C++. Players 'X' and 'O' take turns marking the 3 x 3 board, and whoever first makes a row, column, or diagonal match wins
+A standard Tic-Tac-Toe program developed using C++. Players *X* and *O* take turns marking the 3 x 3 board, and whoever first makes a row, column, or diagonal match wins
 the game. To place a mark, simply enter a number on the terminal to specify which free space on the board to use.
 ## Game Modes
 This program features two modes: **Player vs. AI** or **Player vs. Player**.
@@ -16,4 +16,15 @@ to optimize each move, becoming an unbeatable opponent. However, the algorithm r
 | --- | --- |
 | ![](https://github.com/aesgu001/AP-tictactoe/blob/main/Minimax.gif) | ![](https://github.com/aesgu001/AP-tictactoe/blob/main/Alpha-Beta%20Pruning.gif) |
 
-As shown above, the alpha-beta pruning algorithm significantly reduced the number of searches for its first move roughly by 90%!
+As shown above, the alpha-beta pruning algorithm significantly reduced the number of searches for its first move roughly **by 90%!**
+## Build
+**Note**: The GNU C++ compiler package must be installed in order to generate the application.
+
+Building and running this program takes 5 easy steps using the Linux terminal:
+```
+git clone https://github.com/aesgu001/AP-tictactoe.git
+cd AP-tictactoe
+git checkout v1-00
+make
+./AP-tictactoe
+```
